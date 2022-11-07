@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
+import 'login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -8,6 +10,21 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Future.delayed(
+        Duration(seconds: 3),(){
+          Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context)=>
+              LoginScreen()
+             )
+          );
+      }
+    );
+  }
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
