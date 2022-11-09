@@ -2,6 +2,7 @@ import 'package:e_attendance/Screens/dashboard_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 
+import '../Components/buttons.dart';
 import '../app_constants.dart';
 
 class VerifyOTP extends StatefulWidget {
@@ -86,26 +87,16 @@ class _VerifyOTPState extends State<VerifyOTP> {
                           child: SizedBox(
                             width: 150,
                             height: 40,
-                            child: ElevatedButton(
-                              onPressed: (){
-                                Navigator.pushReplacement(context,
-                                    MaterialPageRoute(builder: (context)=>
-                                        Dashboard()
-                                    )
-                                );
-                              },
-                              style: ButtonStyle(
-                                  backgroundColor: MaterialStateProperty.all(primaryColor)
-                              ),
-                              child: Center(
-                                child: Text(
-                                  "VERIFY",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
+                            child: Button(
+                                title: "VERIFY",
+                                onPressed: (){
+                                  Navigator.pushReplacement(
+                                    context, MaterialPageRoute(
+                                      builder: (context)=>Dashboard()
                                   ),
-                                ),
-                              ),
-                            ),
+                                  );
+                                }
+                            )
                           )
                       ),
                     ),

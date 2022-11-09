@@ -37,6 +37,7 @@ dependencies:
   google_fonts: ^3.0.1
   flutter_otp_text_field: ^1.1.1
   page_transition: ^2.0.9
+  flutter_displaymode: ^0.4.1
 
 dev_dependencies:
   flutter_test:

@@ -1,7 +1,9 @@
+import 'package:e_attendance/Components/buttons.dart';
 import 'package:e_attendance/Screens/verify_otp_screen.dart';
 import 'package:e_attendance/app_constants.dart';
 import 'package:flutter/cupertino.dart';
 import "package:flutter/material.dart";
+import 'package:page_transition/page_transition.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -75,26 +77,16 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: SizedBox(
                             width: 150,
                             height: 40,
-                            child: ElevatedButton(
+                            child: Button(
+                              title: "LOGIN",
                               onPressed: (){
-                                Navigator.pushReplacement(context,
-                                    MaterialPageRoute(builder: (context)=>
-                                        VerifyOTP()
-                                    )
-                                );
-                              },
-                              style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all(primaryColor)
-                              ),
-                              child: Center(
-                                child: Text(
-                                  "LOGIN",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
+                                Navigator.pushReplacement(
+                                  context, MaterialPageRoute(
+                                    builder: (context)=>VerifyOTP()
                                   ),
-                                ),
-                              ),
-                            ),
+                                );
+                              }
+                            )
                           )
                       ),
                     ),
