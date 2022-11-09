@@ -1,11 +1,12 @@
 import 'package:e_attendance/Components/bottom_sheet.dart';
 import 'package:e_attendance/Screens/attendance_status.dart';
 import 'package:e_attendance/Screens/dashboard_screen.dart';
+import 'package:e_attendance/Screens/posting.dart';
 import 'package:flutter/material.dart';
 
 class MyAppDrawer extends StatefulWidget {
-  const MyAppDrawer({Key? key}) : super(key: key);
-
+  int? tappedValue;
+  MyAppDrawer({required this.tappedValue});
   @override
   State<MyAppDrawer> createState() => _MyAppDrawerState();
 }
@@ -17,7 +18,8 @@ class _MyAppDrawerState extends State<MyAppDrawer> {
     "POSTING",
     "LOGOUT"
   ];
-  int? tapped;
+  List<bool> isHighlighted = [true, false, false,false];
+  int tapped=0;
   final rowSpacer=TableRow(
       children: [
         SizedBox( height: 10, ),
@@ -25,6 +27,16 @@ class _MyAppDrawerState extends State<MyAppDrawer> {
         SizedBox( height: 10, )
       ]
   );
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print(widget.tappedValue!);
+    setState(() {
+      tapped=widget.tappedValue!;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -127,7 +139,7 @@ class _MyAppDrawerState extends State<MyAppDrawer> {
                   GestureDetector(
                     onTap: (){
                       setState(() {
-                        tapped=1;
+                        tapped=0;
                       });
                       Navigator.of(context).pop();
                       Navigator.pushReplacement(
@@ -142,7 +154,7 @@ class _MyAppDrawerState extends State<MyAppDrawer> {
                       height: 50,
                       width: width,
                       decoration: BoxDecoration(
-                        color: tapped ==1 ? Colors.grey : Colors.transparent,
+                        color: tapped ==0 ? Colors.grey : Colors.transparent,
                       ),
                       child: ListTile(
                         title: Text(
@@ -157,7 +169,7 @@ class _MyAppDrawerState extends State<MyAppDrawer> {
                   GestureDetector(
                     onTap: (){
                       setState(() {
-                        tapped=2;
+                        tapped=1;
                       });
                       Navigator.of(context).pop();
                       Navigator.pushReplacement(
@@ -165,6 +177,7 @@ class _MyAppDrawerState extends State<MyAppDrawer> {
                           builder: (context)=>
                               AttendanceStatus(
                                 title: items[1],
+                                tappedValue: 1,
                               )
                       ),
                       );
@@ -174,7 +187,7 @@ class _MyAppDrawerState extends State<MyAppDrawer> {
                       height: 50,
                       width: width,
                       decoration: BoxDecoration(
-                        color: tapped ==2 ? Colors.grey : Colors.transparent,
+                        color: tapped ==1 ? Colors.grey : Colors.transparent,
                       ),
                       child: ListTile(
                         title: Text(
@@ -189,13 +202,13 @@ class _MyAppDrawerState extends State<MyAppDrawer> {
                   GestureDetector(
                     onTap: (){
                       setState(() {
-                        tapped=3;
+                        tapped=2;
                       });
                       Navigator.of(context).pop();
                       Navigator.pushReplacement(
                         context, MaterialPageRoute(
                           builder: (context)=>
-                              AttendanceStatus(
+                              Posting(
                                 title: items[2],
                               )
                       ),
@@ -206,7 +219,7 @@ class _MyAppDrawerState extends State<MyAppDrawer> {
                       height: 50,
                       width: width,
                       decoration: BoxDecoration(
-                        color: tapped ==3 ? Colors.grey : Colors.transparent,
+                        color: tapped ==2 ? Colors.grey : Colors.transparent,
                       ),
                       child: ListTile(
                         title: Text(
@@ -221,7 +234,7 @@ class _MyAppDrawerState extends State<MyAppDrawer> {
                   GestureDetector(
                     onTap: (){
                       setState(() {
-                        tapped=4;
+                        tapped=3;
                       });
                       print("Tapped");
                       Navigator.pop(context);
@@ -231,7 +244,7 @@ class _MyAppDrawerState extends State<MyAppDrawer> {
                       height: 50,
                       width: width,
                       decoration: BoxDecoration(
-                        color: tapped ==4 ? Colors.grey : Colors.transparent,
+                        color: tapped ==3 ? Colors.grey : Colors.transparent,
                       ),
                       child: ListTile(
                         title: Text(

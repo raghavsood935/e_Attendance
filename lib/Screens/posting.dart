@@ -16,7 +16,9 @@ class _PostingState extends State<Posting> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey.shade300,
-      drawer: MyAppDrawer(),
+      drawer: MyAppDrawer(
+        tappedValue: 2,
+      ),
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(50),
           child: MyAppBar(

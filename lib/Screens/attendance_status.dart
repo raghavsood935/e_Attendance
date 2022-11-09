@@ -5,18 +5,28 @@ import '../Components/drawer.dart';
 
 class AttendanceStatus extends StatefulWidget {
   String? title;
-  AttendanceStatus({required this.title});
+  int? tappedValue;
+  AttendanceStatus({required this.title,this.tappedValue});
 
   @override
   State<AttendanceStatus> createState() => _AttendanceStatusState();
 }
 
 class _AttendanceStatusState extends State<AttendanceStatus> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print(widget.tappedValue);
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey.shade300,
-      drawer: MyAppDrawer(),
+      drawer: MyAppDrawer(
+        tappedValue: widget.tappedValue,
+      ),
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(50),
           child: MyAppBar(

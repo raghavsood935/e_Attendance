@@ -28,7 +28,9 @@ class _DashboardState extends State<Dashboard> {
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.grey.shade300,
-      drawer: MyAppDrawer(),
+      drawer: MyAppDrawer(
+        tappedValue: 0,
+      ),
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(50),
           child: MyAppBar(title: header,)
