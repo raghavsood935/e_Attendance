@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "716200851126",
+    "project_id": "stellarattendance-d42d5",
+    "storage_bucket": "stellarattendance-d42d5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:716200851126:android:2735f4b44bdee9b4f65817",
+        "android_client_info": {
+          "package_name": "com.stellar.smartattendance"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "716200851126-l8p9qkgm80bhaid09n049ct9t9gan8h7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.stellar.smartattendance",
+            "certificate_hash": "b06ea7a1586953f61ea510f45ad4224a438fd512"
+          }
+        },
+        {
+          "client_id": "716200851126-436nhjabccvm8uvsukhl2pci75j5ggkm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7BfjK9hFgpe2QBMHRGAK5nBIeixfh3Cs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "716200851126-436nhjabccvm8uvsukhl2pci75j5ggkm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

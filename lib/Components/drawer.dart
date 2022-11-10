@@ -18,7 +18,7 @@ class _MyAppDrawerState extends State<MyAppDrawer> {
     "POSTING",
     "LOGOUT"
   ];
-  List<bool> isHighlighted = [true, false, false,false];
+
   int tapped=0;
   final rowSpacer=TableRow(
       children: [
@@ -154,7 +154,7 @@ class _MyAppDrawerState extends State<MyAppDrawer> {
                       height: 50,
                       width: width,
                       decoration: BoxDecoration(
-                        color: tapped ==0 ? Colors.grey : Colors.transparent,
+                        color: tapped ==0 ? Colors.grey.shade300 : Colors.transparent,
                       ),
                       child: ListTile(
                         title: Text(
@@ -173,7 +173,8 @@ class _MyAppDrawerState extends State<MyAppDrawer> {
                       });
                       Navigator.of(context).pop();
                       Navigator.pushReplacement(
-                        context, MaterialPageRoute(
+                        context,
+                        MaterialPageRoute(
                           builder: (context)=>
                               AttendanceStatus(
                                 title: items[1],
@@ -187,7 +188,7 @@ class _MyAppDrawerState extends State<MyAppDrawer> {
                       height: 50,
                       width: width,
                       decoration: BoxDecoration(
-                        color: tapped ==1 ? Colors.grey : Colors.transparent,
+                        color: tapped ==1 ? Colors.grey.shade300 : Colors.transparent,
                       ),
                       child: ListTile(
                         title: Text(
@@ -219,7 +220,7 @@ class _MyAppDrawerState extends State<MyAppDrawer> {
                       height: 50,
                       width: width,
                       decoration: BoxDecoration(
-                        color: tapped ==2 ? Colors.grey : Colors.transparent,
+                        color: tapped ==2 ? Colors.grey.shade300 : Colors.transparent,
                       ),
                       child: ListTile(
                         title: Text(
@@ -244,7 +245,7 @@ class _MyAppDrawerState extends State<MyAppDrawer> {
                       height: 50,
                       width: width,
                       decoration: BoxDecoration(
-                        color: tapped ==3 ? Colors.grey : Colors.transparent,
+                        color: tapped ==3 ? Colors.grey.shade300 : Colors.transparent,
                       ),
                       child: ListTile(
                         title: Text(
