@@ -42,7 +42,8 @@ class _AttendanceStatusState extends State<AttendanceStatus> {
           child: Container(
             color: Colors.grey.shade300,
             height: MediaQuery.of(context).size.height,
-            child: Column(
+            child: tappedList?
+            Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                   Container(
@@ -293,6 +294,109 @@ class _AttendanceStatusState extends State<AttendanceStatus> {
                   ),
                 )
               ],
+            ):Container(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        GestureDetector(
+                          onTap: (){
+                            setState(() {
+                              tappedGrid=true;
+                              tappedList=false;
+                            });
+                          },
+                          child: Row(
+                              children: [
+                                Image.asset(
+                                  "assets/ic_grid_blue.png",
+                                  height: 20,
+                                  width: 20,
+                                  color: tappedGrid? primaryColor : Colors.grey,
+                                ),
+                                SizedBox(width: 5,),
+                                Text(
+                                  "GRID VIEW",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: tappedGrid? primaryColor : Colors.black,
+                                      fontSize: 12
+                                  ),
+                                )
+                              ]
+                          ),
+                        ),
+                        SizedBox(width: 15,),
+                        GestureDetector(
+                          onTap: (){
+                            setState(() {
+                              tappedList=true;
+                              tappedGrid=false;
+                            });
+                          },
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,//Center Row contents horizontally,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  "assets/ic_list_blue.png",
+                                  height: 23,
+                                  width: 23,
+                                  color: tappedList? primaryColor : Colors.grey,
+                                ),
+                                SizedBox(width: 5,),
+                                Text(
+                                  "LIST VIEW",
+                                  style: TextStyle(
+                                      color: tappedList? primaryColor : Colors.black,
+                                      fontSize: 12
+                                  ),
+                                )
+                              ]
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 35,
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        height: 20,
+                        width: 20,
+                        color: presentColor,
+                      ),
+                      SizedBox(width: 7,),
+                      Text(
+                        "PRESENT",
+                        style: TextStyle(
+                          fontSize: 12
+                        ),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Container(
+                        height: 20,
+                        width: 20,
+                        color: absentColor,
+                      ),
+                      SizedBox(width: 7,),
+                      Text(
+                        "ABSENT",
+                        style: TextStyle(
+                            fontSize: 12
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
         ),
