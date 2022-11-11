@@ -72,7 +72,7 @@ class _DashboardState extends State<Dashboard> {
                         child: Padding(
                           padding: EdgeInsets.symmetric(
                               horizontal: 25,
-                              vertical: 25
+                              vertical: 45
                           ),
                           child:  Container(
                                     child: Table(

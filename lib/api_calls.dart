@@ -5,9 +5,9 @@ import 'package:http/http.dart' as http;
 
 String apiHeader = "https://e-attendance.starspayroll.in/stage";
 
-Future getEmployeeData(String id,String type) async {
+Future getEmployeeData(String id) async {
   var request = http.Request(
-      'POST', Uri.parse('$apiHeader/api/rest/employee/auth/login?emp_code=$id&login_type=$type'));
+      'POST', Uri.parse('$apiHeader/api/rest/employee/auth/login?emp_code=$id'));
 
   http.StreamedResponse response = await request.send();
   var data = jsonDecode(await response.stream.bytesToString());

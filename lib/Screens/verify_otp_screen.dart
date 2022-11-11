@@ -89,7 +89,7 @@ class _VerifyOTPState extends State<VerifyOTP> {
                             height: 40,
                             child: Button(
                                 title: "VERIFY",
-                                onPressed: (){
+                                onPressed: () async {
                                   Navigator.pushReplacement(
                                     context, MaterialPageRoute(
                                       builder: (context)=>Dashboard()

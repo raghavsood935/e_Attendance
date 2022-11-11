@@ -4,7 +4,10 @@ import 'package:e_attendance/api_calls.dart';
 import 'package:e_attendance/app_constants.dart';
 import 'package:flutter/cupertino.dart';
 import "package:flutter/material.dart";
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:page_transition/page_transition.dart';
+
+import '../Components/loader.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -16,6 +19,8 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final controller = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  var tapped = false;
+  var message;
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -61,6 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         Padding(
                               padding: EdgeInsets.symmetric(horizontal: 15),
                               child: TextFormField(
+                                autofocus: false,
                                 cursorHeight: 25,
                                 controller: controller,
                                 cursorColor: primaryColor,
@@ -72,11 +78,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                     borderSide: BorderSide(color: primaryColor),
                                   ),
                                 ),
-                                validator: (value){
-                                  if(value == null || value.isEmpty)
-                                    return "Empty";
-                                },
-                              )
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return "Employee ID cannot be Empty";
+                                  }
+                                }
+                                ),
                           ),
                         Spacer(),
                         Center(
@@ -87,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 height: 40,
                                 child: Button(
                                   title: "LOGIN",
-                                  onPressed: (){
+                                  onPressed: () async {
                                    // if (_formKey.currentState!.validate()) {
                                    //   getEmployeeData(controller.text, 'new')
                                    //       .then((value){
@@ -99,11 +106,39 @@ class _LoginScreenState extends State<LoginScreen> {
                                    //   ),
                                    //   );
                                    //  }
-                                    Navigator.push(
-                                      context, MaterialPageRoute(
-                                        builder: (context) => VerifyOTP()
-                                    ),
-                                    );
+                                   if (_formKey.currentState!.validate()) {
+                                     showDialog(
+                                         context: context,
+                                         builder: (context) {
+                                           return Dialog(
+                                             backgroundColor: Colors.transparent
+                                                 .withOpacity(0.5),
+                                             child: const LocationShimmer(
+                                                 height: 30,
+                                                 width: 100,
+                                                 string: "Validating"),
+                                           );
+                                         });
+                                     await getEmployeeData(controller.text)
+                                         .then((value) {
+                                       print(value['status']);
+                                       if(value['status']=="success"){
+                                          Navigator.push(
+                                           context, MaterialPageRoute(
+                                             builder: (context) => VerifyOTP()
+                                         ),
+                                         );
+                                       }else if(value['status']=="failure"){
+                                         print("Error");
+                                         Navigator.pop(context);
+                                         setState(() {
+                                           Fluttertoast.showToast(
+                                               msg: "Incorrect Employee ID"
+                                           );
+                                         });
+                                       }
+                                     });
+                                   }
                                   }
                                 )
                               )
