@@ -178,7 +178,6 @@ class _MyAppDrawerState extends State<MyAppDrawer> {
                           builder: (context)=>
                               AttendanceStatus(
                                 title: items[1],
-                                tappedValue: 1,
                               )
                       ),
                       );
