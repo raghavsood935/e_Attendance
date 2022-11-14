@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class Dashboard extends StatefulWidget {
   String? empCode;
@@ -91,7 +92,13 @@ class _DashboardState extends State<Dashboard> {
                  child: Padding(
                    padding: EdgeInsets.symmetric(horizontal: 25),
                    child:  GestureDetector(
-                     onTap: (){},
+                     onTap: (){
+                       Navigator.pushReplacement(
+                         context, MaterialPageRoute(
+                           builder: (context)=>Dashboard(empCode: widget.empCode!)
+                         ),
+                       );
+                     },
                      child: Image.asset(
                        "assets/refresh.png",
                        color: primaryColor,
