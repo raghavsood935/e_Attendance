@@ -1,19 +1,28 @@
 import 'package:e_attendance/Screens/dashboard_screen.dart';
+import 'package:e_attendance/api_calls.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../Components/buttons.dart';
+import '../Components/loader.dart';
 import '../app_constants.dart';
 
 class VerifyOTP extends StatefulWidget {
-  const VerifyOTP({Key? key}) : super(key: key);
-
+  String? empCode;
+  VerifyOTP({required this.empCode});
   @override
   State<VerifyOTP> createState() => _VerifyOTPState();
 }
 
 class _VerifyOTPState extends State<VerifyOTP> {
+String? otp;
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print("Employee Code ${widget.empCode}");
+  }
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -72,7 +81,8 @@ class _VerifyOTPState extends State<VerifyOTP> {
                           print(value);
                         },
                         onSubmit: (value){
-                          print(value);
+                          otp=value;
+                          print(otp);
                         },
                         cursorColor: Colors.black,
                         showFieldAsBox: true,
@@ -90,11 +100,36 @@ class _VerifyOTPState extends State<VerifyOTP> {
                             child: Button(
                                 title: "VERIFY",
                                 onPressed: () async {
-                                  Navigator.pushReplacement(
-                                    context, MaterialPageRoute(
-                                      builder: (context)=>Dashboard()
-                                  ),
-                                  );
+                                  print(otp!.length);
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return Dialog(
+                                          backgroundColor: Colors.transparent
+                                              .withOpacity(0.5),
+                                          child: const LocationShimmer(
+                                              height: 30,
+                                              width: 100,
+                                              string: "Validating"),
+                                        );
+                                      });
+                                 await verifyEmployeeData(widget.empCode!, otp!).then((value) {
+                                    if(value['status']=="success"){
+                                      Navigator.pushReplacement(
+                                        context, MaterialPageRoute(
+                                          builder: (context)=>Dashboard()
+                                        ),
+                                      );
+                                      Fluttertoast.showToast(
+                                          msg: "OTP verified",
+                                      );
+                                    }else{
+                                      Fluttertoast.showToast(
+                                          msg: "Wrong OTP Entered, Please Try Again"
+                                      );
+                                      Navigator.pop(context);
+                                    }
+                                  });
                                 }
                             )
                           )

@@ -18,3 +18,17 @@ Future getEmployeeData(String id) async {
   }
   return data;
 }
+
+Future verifyEmployeeData(String id,String otp) async {
+  var request = http.Request(
+      'POSt', Uri.parse('$apiHeader/api/rest/employee/auth/verify-otp?emp_code=$id&otp=$otp'));
+
+  http.StreamedResponse response = await request.send();
+  var data = jsonDecode(await response.stream.bytesToString());
+  if (response.statusCode == 200) {
+    print(data);
+  } else {
+    print(response.reasonPhrase);
+  }
+  return data;
+}

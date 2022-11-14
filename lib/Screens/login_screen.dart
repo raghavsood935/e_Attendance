@@ -66,11 +66,18 @@ class _LoginScreenState extends State<LoginScreen> {
                         Padding(
                               padding: EdgeInsets.symmetric(horizontal: 15),
                               child: TextFormField(
+                                style: TextStyle(
+                                  fontFamily: secondaryFont,
+                                  fontWeight: FontWeight.bold
+                                ),
                                 autofocus: false,
                                 cursorHeight: 25,
                                 controller: controller,
                                 cursorColor: primaryColor,
                                 decoration: InputDecoration(
+                                  errorStyle: TextStyle(
+                                    fontSize: 15
+                                  ),
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(color: Colors.black),
                                   ),
@@ -95,17 +102,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                 child: Button(
                                   title: "LOGIN",
                                   onPressed: () async {
-                                   // if (_formKey.currentState!.validate()) {
-                                   //   getEmployeeData(controller.text, 'new')
-                                   //       .then((value){
-                                   //     print(value);
-                                   //   });
-                                   //   Navigator.push(
-                                   //     context, MaterialPageRoute(
-                                   //       builder: (context) => VerifyOTP()
-                                   //   ),
-                                   //   );
-                                   //  }
                                    if (_formKey.currentState!.validate()) {
                                      showDialog(
                                          context: context,
@@ -122,20 +118,22 @@ class _LoginScreenState extends State<LoginScreen> {
                                      await getEmployeeData(controller.text)
                                          .then((value) {
                                        print(value['status']);
+                                       print(controller.text);
                                        if(value['status']=="success"){
+                                         Navigator.pop(context);
                                           Navigator.push(
                                            context, MaterialPageRoute(
-                                             builder: (context) => VerifyOTP()
-                                         ),
+                                             builder: (context) => VerifyOTP(
+                                               empCode: controller.text,
+                                             )
+                                           ),
                                          );
-                                       }else if(value['status']=="failure"){
+                                       }else{
                                          print("Error");
-                                         Navigator.pop(context);
-                                         setState(() {
-                                           Fluttertoast.showToast(
+                                         Fluttertoast.showToast(
                                                msg: "Incorrect Employee ID"
-                                           );
-                                         });
+                                         );
+                                         Navigator.pop(context);
                                        }
                                      });
                                    }
