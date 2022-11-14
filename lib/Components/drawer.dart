@@ -2,11 +2,16 @@ import 'package:e_attendance/Components/bottom_sheet.dart';
 import 'package:e_attendance/Screens/attendance_status.dart';
 import 'package:e_attendance/Screens/dashboard_screen.dart';
 import 'package:e_attendance/Screens/posting.dart';
+import 'package:e_attendance/app_constants.dart';
 import 'package:flutter/material.dart';
 
+import '../api_calls.dart';
+
 class MyAppDrawer extends StatefulWidget {
+  String? empName;
+  String? empCode;
   int? tappedValue;
-  MyAppDrawer({required this.tappedValue});
+  MyAppDrawer({required this.tappedValue,required this.empName,required this.empCode});
   @override
   State<MyAppDrawer> createState() => _MyAppDrawerState();
 }
@@ -28,14 +33,12 @@ class _MyAppDrawerState extends State<MyAppDrawer> {
       ]
   );
 
-  @override
+@override
   void initState() {
     // TODO: implement initState
     super.initState();
-    print(widget.tappedValue!);
-    setState(() {
-      tapped=widget.tappedValue!;
-    });
+    print(widget.empCode);
+    print(widget.empName);
   }
   @override
   Widget build(BuildContext context) {
@@ -75,7 +78,7 @@ class _MyAppDrawerState extends State<MyAppDrawer> {
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Table(
                         columnWidths: {
-                          0: FlexColumnWidth(3),
+                          0: FlexColumnWidth(2.5),
                           1: FlexColumnWidth(1),
                           2: FlexColumnWidth(6),
                         },
@@ -95,9 +98,10 @@ class _MyAppDrawerState extends State<MyAppDrawer> {
                                 ),
                               ),
                               Text(
-                                "",
+                                widget.empCode!,
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
+                                  fontSize: 15
                                 ),
                               ),
                             ],
@@ -118,9 +122,10 @@ class _MyAppDrawerState extends State<MyAppDrawer> {
                               ),
                             ),
                             Text(
-                              "",
+                              widget.empName!,
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
+                                fontSize: 15,
                               ),
                             ),
                           ],
@@ -145,8 +150,8 @@ class _MyAppDrawerState extends State<MyAppDrawer> {
                       Navigator.pushReplacement(
                         context, MaterialPageRoute(
                           builder: (context)=>
-                              Dashboard()
-                      ),
+                              Dashboard(empCode: widget.empCode,)
+                        ),
                       );
                       print("Tapped");
                     },
@@ -168,6 +173,7 @@ class _MyAppDrawerState extends State<MyAppDrawer> {
                   ),
                   GestureDetector(
                     onTap: (){
+                      print(widget.empCode);
                       setState(() {
                         tapped=1;
                       });
@@ -178,6 +184,7 @@ class _MyAppDrawerState extends State<MyAppDrawer> {
                           builder: (context)=>
                               AttendanceStatus(
                                 title: items[1],
+                                empCode: widget.empCode
                               )
                       ),
                       );
@@ -201,6 +208,8 @@ class _MyAppDrawerState extends State<MyAppDrawer> {
                   ),
                   GestureDetector(
                     onTap: (){
+                      print(widget.empCode);
+                      print(items[2]);
                       setState(() {
                         tapped=2;
                       });
@@ -210,6 +219,7 @@ class _MyAppDrawerState extends State<MyAppDrawer> {
                           builder: (context)=>
                               Posting(
                                 title: items[2],
+                                empCode: widget.empCode,
                               )
                       ),
                       );

@@ -53,13 +53,47 @@ String? otp;
                   children: [
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 15,vertical: 15),
-                      child: Text(
-                        "OTP VERIFICATION",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                            color: Colors.black
+                      child: Row(
+                        children: [
+                          Text(
+                          "OTP VERIFICATION",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                              color: Colors.black
+                          ),
                         ),
+                          Spacer(),
+                          GestureDetector(
+                            onTap: () async {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return Dialog(
+                                      backgroundColor: Colors.transparent
+                                          .withOpacity(0.5),
+                                      child: const LocationShimmer(
+                                          height: 30,
+                                          width: 100,
+                                          string: "Sending OTP Again"),
+                                    );
+                                  });
+                              await resendOTP(widget.empCode!,"new", "required").then((value){
+                                Fluttertoast.showToast(
+                                    msg: value['response']['message']
+                                );
+                              });
+                              Navigator.pop(context);
+                            },
+                            child: Text(
+                                "RESEND OTP",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                             color: primaryColor
+                             ),
+                            ),
+                          )
+                       ],
                       ),
                     ),
                     SizedBox(height: 20,),
@@ -117,11 +151,11 @@ String? otp;
                                     if(value['status']=="success"){
                                       Navigator.pushReplacement(
                                         context, MaterialPageRoute(
-                                          builder: (context)=>Dashboard()
+                                          builder: (context)=>Dashboard(empCode: widget.empCode!)
                                         ),
                                       );
                                       Fluttertoast.showToast(
-                                          msg: "OTP verified",
+                                          msg: value['response']['message'],
                                       );
                                     }else{
                                       Fluttertoast.showToast(

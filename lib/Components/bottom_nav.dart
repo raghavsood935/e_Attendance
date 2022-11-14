@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import '../Screens/attendance_status.dart';
 
 class MyBottomNavigationBar extends StatelessWidget {
-
+String? empCode;
+MyBottomNavigationBar({required this.empCode});
   List<String> items =[
     "ATTENDANCE STATUS",
     "POSTING",
@@ -27,6 +28,7 @@ class MyBottomNavigationBar extends StatelessWidget {
                           builder: (context)=>
                               AttendanceStatus(
                                 title: items[0],
+                                empCode: empCode,
                               )
                       ),
                     );
@@ -46,6 +48,7 @@ class MyBottomNavigationBar extends StatelessWidget {
                           builder: (context)=>
                               Posting(
                                 title: items[1],
+                                empCode: empCode,
                               )
                       ),
                     );

@@ -8,3 +8,4 @@ const navColor=Colors.black;
 const presentColor = Color(0xff14e04b);
 const absentColor = Color(0xffde2421);
 var secondaryFont = GoogleFonts.montserrat().fontFamily;
+var tertiaryFont= GoogleFonts.lato().fontFamily;

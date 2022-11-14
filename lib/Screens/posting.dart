@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../Components/app_bar.dart';
 import '../Components/drawer.dart';
+import '../api_calls.dart';
 import '../app_constants.dart';
 
 class Posting extends StatefulWidget {
   String? title;
-  Posting({required this.title});
+  String? empCode;
+  Posting({required this.title,required this.empCode});
 
   @override
   State<Posting> createState() => _PostingState();
@@ -17,12 +19,51 @@ class _PostingState extends State<Posting> {
   CalendarFormat format = CalendarFormat.month;
   DateTime selectedDay = DateTime.now();
   DateTime focusedDay = DateTime.now();
+  dynamic roasters;
+  bool _loading=false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    init();
+  }
+
+  Future<void> init () async{
+    _loading=true;
+    await getRoasters(widget.empCode!)
+        .then((value){
+      setState(() {
+        roasters = value;
+        _loading=false;
+      });
+    });
+    print(roasters);
+  }
+
   @override
   Widget build(BuildContext context) {
+    if(_loading){
+      return Scaffold(
+        backgroundColor: Colors.white,
+        body: Center(
+          child: Container(
+            height: 20,
+            width: 20,
+            child: CircularProgressIndicator(
+              color: primaryColor,
+              strokeWidth: 2,
+            ),
+          ),
+        ),
+      );
+    }
     return Scaffold(
       backgroundColor: Colors.grey.shade300,
       drawer: MyAppDrawer(
         tappedValue: 2,
+        empName: roasters["data"][0]["emp_name"],
+        empCode: roasters["data"][0]["employee_code"],
       ),
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(50),
@@ -30,7 +71,7 @@ class _PostingState extends State<Posting> {
               title: widget.title
           )
     ),
-      bottomNavigationBar: MyBottomNavigationBar(),
+      bottomNavigationBar: MyBottomNavigationBar(empCode: widget.empCode,),
       body: Padding(
         padding: EdgeInsets.all(12.0),
         child: Container(

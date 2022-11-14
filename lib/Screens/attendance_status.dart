@@ -6,16 +6,21 @@ import '../Components/app_bar.dart';
 import '../Components/drawer.dart';
 import 'package:table_calendar/table_calendar.dart';
 
+import '../Components/loader.dart';
+import '../api_calls.dart';
+
 class AttendanceStatus extends StatefulWidget {
   String? title;
-  AttendanceStatus({required this.title});
+  String? empCode;
+  AttendanceStatus({required this.title,required this.empCode});
 
   @override
   State<AttendanceStatus> createState() => _AttendanceStatusState();
 }
 
 class _AttendanceStatusState extends State<AttendanceStatus> {
-  bool tappedList=false,tappedGrid=false;
+  bool tappedList=false,tappedGrid=false,_loading=false;
+  dynamic roasters;
   CalendarFormat format = CalendarFormat.month;
   DateTime selectedDay = DateTime.now();
   DateTime focusedDay = DateTime.now();
@@ -26,13 +31,44 @@ class _AttendanceStatusState extends State<AttendanceStatus> {
     super.initState();
     tappedList=true;
     tappedGrid=false;
+    init();
+  }
+
+  Future<void> init () async{
+    _loading= true;
+    print(widget.empCode);
+    await getRoasters(widget.empCode!)
+        .then((value){
+      setState(() {
+        roasters = value;
+        _loading=false;
+      });
+    });
+    print(roasters);
   }
   @override
   Widget build(BuildContext context) {
+    if(_loading){
+      return Scaffold(
+        backgroundColor: Colors.white,
+        body: Center(
+          child: Container(
+            height: 20,
+            width: 20,
+            child: CircularProgressIndicator(
+              color: primaryColor,
+              strokeWidth: 2,
+            ),
+          ),
+        ),
+      );
+    }
     return Scaffold(
       backgroundColor: Colors.grey.shade300,
       drawer: MyAppDrawer(
         tappedValue: 1,
+        empName: roasters["data"][0]["emp_name"],
+        empCode: roasters["data"][0]["employee_code"],
       ),
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(50),
@@ -40,7 +76,7 @@ class _AttendanceStatusState extends State<AttendanceStatus> {
               title: widget.title
           )
       ),
-      bottomNavigationBar: MyBottomNavigationBar(),
+      bottomNavigationBar: MyBottomNavigationBar(empCode: widget.empCode,),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(12.0),
